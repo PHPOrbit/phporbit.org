@@ -135,7 +135,10 @@ function App() {
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-300 py-12">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <img src="assets/images/Light-Logo.png" alt="PHPOrbit Logo" className="mx-auto mb-4" />
+            </div>
             <div>
               <h3 className="font-semibold text-white mb-4">Quick Links</h3>
               <ul className="space-y-2">

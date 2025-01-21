@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import { copyFileSync, existsSync } from 'fs';
+import fsExtra from 'fs-extra';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+
+const { copySync, existsSync } = fsExtra;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,13 +14,13 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'copy-favicon',
+      name: 'copy-assets',
       apply: 'build',
       closeBundle() {
-        const srcPath = 'assets/images/favicon.png';
-        const destPath = 'dist/assets/images/favicon.png';
+        const srcPath = 'assets';
+        const destPath = 'dist/assets';
         if (existsSync(srcPath)) {
-          copyFileSync(srcPath, destPath);
+          copySync(srcPath, destPath);
         } else {
           console.error(`Error: ${srcPath} does not exist.`);
         }
@@ -34,10 +36,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
       },
       output: {
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'favicon.png') {
-            return 'assets/images/[name][extname]';
-          }
+        assetFileNames: () => {
           return 'assets/[name][extname]';
         },
       },
